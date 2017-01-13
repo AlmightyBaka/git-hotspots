@@ -15,11 +15,11 @@ nodegit.Repository.open(path.resolve("", ".git"))
     let walker = tree.walk();
     
     walker.on("entry", function (entry) {
-      if (dictionary[entry.path] == undefined) {
-        dictionary[entry.path] = 0;
+      if (dictionary[entry.path()] == undefined) {
+        dictionary[entry.path()] = 0;
       }
 
-      dictionary[entry.path] += 1;
+      dictionary[entry.path()] += 1;
     });
 
     // Don't forget to call `start()`!
