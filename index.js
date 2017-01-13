@@ -1,9 +1,10 @@
 let nodegit = require("nodegit"),
   path = require("path");
 
+let repoPath = ".git";
 let dictionary = {};
 
-nodegit.Repository.open(path.resolve("", ".git"))
+nodegit.Repository.open(path.resolve(repoPath))
   .then(function (repo) {
     return repo.getMasterCommit();
   })
