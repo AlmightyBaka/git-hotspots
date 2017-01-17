@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nodegit": "^0.16.0"
+    "nodegit": "^0.16.0",
+    "nodegit-kit": "^0.13.0"
   }
 }
