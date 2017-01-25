@@ -20,8 +20,21 @@ git.Repository.open(path.resolve(repoPath))
     .then(function (history) {
       function* diffsIterator() {
         for (let i = 0; i < history.length; i++) {
-          // gets diff from working tree not from last commit
-          yield git_kit.diff(repo, history[i].commit);
+          let commitFrom,
+              commitTo;
+
+          commitFrom = history[i].commit;
+          if (history[i + 1] !== undefined) {
+            commitTo = history[i + 1].commit;
+          }
+
+          if (commitTo !== undefined) {
+            yield git_kit.diff(repo, commitFrom, commitTo);
+          }
+          else {
+            // TODO: get files for first commit
+            return;            
+          }
         }
       }
       
@@ -31,6 +44,7 @@ git.Repository.open(path.resolve(repoPath))
       for (let diffs of diffsIterator()) {
         diffs.then(function (diffs) {
           diffs.forEach(function(diff) {
+            // TODO: check for status: 'deleted'
             console.log(diff.path);
           });
 
