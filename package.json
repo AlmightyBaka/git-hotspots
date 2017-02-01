@@ -1,14 +1,18 @@
 {
-  "name": "poa_analyzer",
+  "name": "poa-git",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "poa-git": "./app-cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Almighty Baka",
   "license": "ISC",
   "dependencies": {
+    "commander": "^2.9.0",
     "nodegit": "^0.16.0",
     "nodegit-kit": "^0.13.0"
   }
