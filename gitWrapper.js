@@ -8,7 +8,10 @@ let list = function (repoDir, amount = 10, verbose = false) {
     let tuples = [];
 
     gitCore.getDiffs(repoDir, function (commit) {
-        // console.log(commit.path);        
+        // console.log(commit.path);
+        // console.log(commit);        
+        // console.log("\n\n\n\n\n")
+                
         if (files[commit.path] === undefined) {
             files[commit.path] = 1;
             // console.log(files[commit.path])
@@ -36,7 +39,11 @@ let list = function (repoDir, amount = 10, verbose = false) {
         // console.log(tuples)
 
         tuples.forEach((tuple) => {
-            console.log(tuple[0] + ": " + tuple[1] + " commits");
+            const fs = require('fs');
+
+            if (fs.existsSync(tuple[0])) {
+                console.log(tuple[0] + ": " + tuple[1] + " commits");
+            }
         })
     });
 
