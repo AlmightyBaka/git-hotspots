@@ -44,14 +44,8 @@ let list = function (repoDir, amount = 10, verbose = false) {
             if (fs.existsSync(tuple[0])) {
                 console.log(tuple[0] + ": " + tuple[1] + " commits");
             }
-        })
+        });
     });
-
-
-    
-    
-    
-    
 };
 
 module.exports.list = list;

@@ -1,10 +1,10 @@
 {
-  "name": "poa-git",
+  "name": "git-hotspots",
   "version": "0.0.1",
-  "description": "",
+  "description": "Shows the most changed files in a git repository.",
   "main": "index.js",
   "bin": {
-    "poa-git": "./app-cli.js"
+    "git-hotspots": "./app-cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
