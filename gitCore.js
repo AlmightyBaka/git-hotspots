@@ -63,10 +63,7 @@ let getDiffs = function (repoDir, callback) {
             for (let diffs of diffIterator()) {
               diffs.then(function (diffs) {
                 diffs.forEach(function (diff) {
-                  // TODO: check for status: 'deleted'
-                  if (diff.status !== 'deleted') {
-                    callback(diff);
-                  }
+                  callback(diff);
                 });
               })
               .then(function() {
@@ -76,7 +73,8 @@ let getDiffs = function (repoDir, callback) {
 
           });
       })
-      .catch(function () {
+      .catch(function (error) {
+        console.error(error);
         reject();
       });
   });
