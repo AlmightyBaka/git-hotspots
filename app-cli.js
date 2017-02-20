@@ -21,8 +21,6 @@ program
         else {
             gitWrapper.list(dir, options.amount, options.verbose);
         }
-
-        // console.log(dir, options.amount, options.verbose);
     });
 
 program.parse(process.argv);
