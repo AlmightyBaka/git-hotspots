@@ -38,13 +38,13 @@ let list = function (repoDir, amount = 10, verbose = false) {
 
         // console.log(tuples)
 
-        tuples.forEach((tuple) => {
+        for (let i = 0; i <= amount; i++) {
             const fs = require('fs');
 
-            if (fs.existsSync(tuple[0])) {
-                console.log(tuple[0] + ": " + tuple[1] + " commits");
+            if (fs.existsSync(tuples[i][0])) {
+                console.log(tuples[i][0] + ": " + tuples[i][1] + " commits");
             }
-        });
+        }
     });
 };
 
