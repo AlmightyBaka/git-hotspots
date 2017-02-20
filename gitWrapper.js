@@ -16,6 +16,8 @@ let list = function (repoDir, amount = 10, verbose = false) {
         }
     })
     .then(function() {
+        const fs = require('fs');
+
         for (let path in files) {
             tuples.push([path, files[path]])
         }
@@ -29,9 +31,12 @@ let list = function (repoDir, amount = 10, verbose = false) {
         .reverse();
 
         for (let i = 0; i <= amount; i++) {
-            const fs = require('fs');
+            if (i === tuples.length) {
+                return;
+            }
 
             if (fs.existsSync(tuples[i][0])) {
+                // TODO: colored output
                 console.log(tuples[i][0] + ": " + tuples[i][1] + " commits");
             }
         }
