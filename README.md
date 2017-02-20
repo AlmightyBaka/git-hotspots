@@ -12,7 +12,7 @@ Can be slow for big repositories, not really sure how to fix it yet (git pls)
 ###Usage
 git-hotspots is based on Node, so you can install it via npm:
 ```
-npm install git-hotspots
+npm install -g git-hotspots
 ```
 To list the most "hot" files:
 ```
