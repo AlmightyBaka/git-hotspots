@@ -1,19 +1,24 @@
 {
   "name": "git-hotspots",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Shows the most changed files in a git repository.",
-  "main": "index.js",
   "bin": {
-    "git-hotspots": "./app-cli.js"
+    "git-hotspots": "app-cli.js"
   },
+  "preferGlobal": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Almighty Baka",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",
     "nodegit": "^0.16.0",
     "nodegit-kit": "^0.13.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SexyBeam/git-hotspots.git"
+  },
+  "bugs": "https://github.com/SexyBeam/git-hotspots.git/issues"
 }
