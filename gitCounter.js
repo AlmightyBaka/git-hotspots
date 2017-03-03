@@ -19,7 +19,7 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
         const fs = require('fs');
 
         for (let path in files) {
-            tuples.push([path, files[path]])
+            tuples.push([path, files[path]]);
         }
 
         tuples.sort(function (a, b) {

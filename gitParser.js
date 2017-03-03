@@ -39,7 +39,7 @@ let getDiffs = function (repoDir, callback) {
       
       return function increment() {
         count++;
-        if (count == max - 1) {
+        if (count === max - 1) {
           resolve();
         }
       };
