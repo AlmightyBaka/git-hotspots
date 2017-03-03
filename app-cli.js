@@ -16,10 +16,10 @@ program
             dir = process.cwd();
         }
         if (!options.verbose) {
-            gitWrapper.list(dir, options.amount);
+            gitWrapper.listPrint(dir, options.amount);
         }
         else {
-            gitWrapper.list(dir, options.amount, options.verbose);
+            gitWrapper.listPrint(dir, options.amount, options.verbose);
         }
     });
 
