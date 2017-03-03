@@ -2,7 +2,7 @@ const gitCounter = require("./gitCounter.js");
 
 let listPrint = function (repoDir, amount = 10, verbose = false) {
     gitCounter.getHotspots(repoDir, (filename, count) => {
-        console.log(filename + ": " + count + " commits");
+        console.log(`${filename}: ${count}`);
     }, amount, verbose);
 };
 
