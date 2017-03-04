@@ -19,6 +19,7 @@ let getDiffs = function (repoDir, callback) {
         }
         else {
           // TODO: get files for first commit
+          // try this? - https://github.com/nodegit/nodegit/issues/1174
           return;
         }
       }
