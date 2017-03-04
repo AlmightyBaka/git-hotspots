@@ -42,7 +42,6 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
             }
             
             if (fs.existsSync(tuples[i][0])) {
-                // TODO: colored output
                 callback(tuples[i][0], tuples[i][1])
             }
         }
