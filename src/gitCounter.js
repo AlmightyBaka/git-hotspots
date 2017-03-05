@@ -1,4 +1,4 @@
-const gitParser = require("./gitParser.js")
+const gitParser = require("./gitParser.js");
 
 const defRepoDir = ".git",
 bigRepoPath = "../nodegit/.git";
@@ -34,15 +34,16 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
     };
 
     let runCallbacks = function(tuples) {
-        const fs = require('fs')
+        const fs = require('fs');
         
         for (let i = 0; i <= amount; i++) {
             if (i === tuples.length) {
                 return;
             }
             
+            // BUG: file not found if filename was changed via git mv
             if (fs.existsSync(tuples[i][0])) {
-                callback(tuples[i][0], tuples[i][1])
+                callback(tuples[i][0], tuples[i][1]);
             }
         }
     };
