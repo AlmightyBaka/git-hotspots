@@ -5,7 +5,7 @@
   "author": "Almighty Baka <ivanfedulov@almightybaka.com>",
   "license": "MIT",
   "bin": {
-    "git-hotspots": "app-cli.js"
+    "git-hotspots": "src/app-cli.js"
   },
   "preferGlobal": true,
   "scripts": {
