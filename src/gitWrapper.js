@@ -9,6 +9,7 @@ let listPrint = function (repo, amount = 10, verbose = false) {
     console.log(`${align("commits", 10, 'left')}   ${align("filename", 30, 'left')}\n`);
     
     hotspots.setRepo(repo)
+    .setAmount(amount)
     .getHotspots((filename, count) => {
         console.log(`${align(count, 10, 'left')}   ${align(filename, 30, 'left')}`);
     });

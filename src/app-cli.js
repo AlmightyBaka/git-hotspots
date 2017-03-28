@@ -12,15 +12,9 @@ program
     .option('-a, --amount [n]', "list top n most-changed files", 10)
     .option('-v, --verbose', "verbose output")
     .action(function (dir, options) {
-        if (!dir) {
-            dir = process.cwd();
-        }
-        if (!options.verbose) {
-            gitWrapper.listPrint(dir, options.amount);
-        }
-        else {
-            gitWrapper.listPrint(dir, options.amount, options.verbose);
-        }
+        dir = dir? dir : process.cwd();
+
+        gitWrapper.listPrint(dir, options.amount, options.verbose);
     });
 
 program.parse(process.argv);
