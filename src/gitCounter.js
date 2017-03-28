@@ -18,13 +18,16 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
     let mapToTuples = function() {
         let tuples = [];
         
-        for (let path in files) {
-            tuples.push([path, files[path]]);
+        for (let file in files) {
+            tuples.push({
+                file,
+                count: files[file]
+            });
         }
         
         tuples.sort(function (a, b) {
-            a = a[1];
-            b = b[1];
+            a = a.count;
+            b = b.count;
             
             return a < b ? -1 : (a > b ? 1 : 0);
         })
@@ -37,13 +40,13 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
         const fs = require('fs');
         
         for (let i = 0; i <= amount; i++) {
-            if (i === tuples.length) {
-                return;
-            }
+            // if (i === tuples.length) {
+            //     return;
+            // }
             
             // BUG: file not found if filename was changed via git mv
-            if (fs.existsSync(tuples[i][0])) {
-                callback(tuples[i][0], tuples[i][1]);
+            if (fs.existsSync(tuples[i].file)) {
+                callback(tuples[i].file, tuples[i].count);
             }
         }
     };
