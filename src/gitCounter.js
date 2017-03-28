@@ -4,8 +4,9 @@ const defRepoDir = ".git",
 bigRepoPath = "../nodegit/.git";
 
 let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
+    let files = {};
+    
     let countFiles = function () {
-        let files = {};
 
         return function(commit) {
             if (files[commit.path] === undefined) {
