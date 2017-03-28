@@ -5,6 +5,8 @@ bigRepoPath = "../nodegit/.git";
 
 let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
     let countFiles = function () {
+        let files = {};
+
         return function(commit) {
             if (files[commit.path] === undefined) {
                 files[commit.path] = 1;
@@ -40,18 +42,12 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
         const fs = require('fs');
         
         for (let i = 0; i <= amount; i++) {
-            // if (i === tuples.length) {
-            //     return;
-            // }
-            
             // BUG: file not found if filename was changed via git mv
             if (fs.existsSync(tuples[i].file)) {
                 callback(tuples[i].file, tuples[i].count);
             }
         }
     };
-    
-    let files = {};
     
     gitParser.getDiffs(repoDir, countFiles())
     .then((files) => mapToTuples(files))
