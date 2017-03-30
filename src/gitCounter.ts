@@ -18,7 +18,7 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
         };
     };
     
-    let mapToTuples = function() {
+    let mapToTuples = function(files) {
         let tuples = [];
         
         for (let file in files) {
