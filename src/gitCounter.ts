@@ -44,9 +44,9 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
         
         for (let i = 0; i <= amount; i++) {
             // BUG: file not found if filename was changed via git mv
-            if (fs.existsSync(tuples[i].file)) {
-                callback(tuples[i].file, tuples[i].count);
-            }
+            // if (fs.existsSync(tuples[i].file)) {
+            //     callback(tuples[i].file, tuples[i].count);
+            // }
         }
     };
     
