@@ -5,11 +5,10 @@
   "author": "Almighty Baka <ivanfedulov@almightybaka.com>",
   "license": "MIT",
   "bin": {
-    "git-hotspots": "js/app-cli.js"
+    "git-hotspots": "src/app-cli.js"
   },
   "preferGlobal": true,
   "scripts": {
-    "build": "tsc -w -p . --outDir ./js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

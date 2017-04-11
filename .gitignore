@@ -60,6 +60,3 @@ typings/
 # Editor-specific
 .vscode
 .vs
-
-# Transpiled JS
-js
