@@ -7,7 +7,6 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
     let files = {};
     
     let countFiles = function () {
-
         return function(commit) {
             if (files[commit.path] === undefined) {
                 files[commit.path] = 1;
@@ -18,7 +17,7 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
         };
     };
     
-    let mapToTuples = function(files) {
+    let mapToTuples = function() {
         let tuples = [];
         
         for (let file in files) {
@@ -38,20 +37,26 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
         
         return tuples;
     };
-
+    
     let runCallbacks = function(tuples) {
         const fs = require('fs');
         
-        for (let i = 0; i <= amount; i++) {
+        for (let i = 0; i < amount; i++) {
             // BUG: file not found if filename was changed via git mv
             // if (fs.existsSync(tuples[i].file)) {
             //     callback(tuples[i].file, tuples[i].count);
             // }
+            if (i < tuples.length) {
+                callback(tuples[i].file, tuples[i].count);
+            }
+            else {
+                return;
+            }
         }
     };
     
     gitParser.getDiffs(repoDir, countFiles())
-    .then((files) => mapToTuples(files))
+    .then(() => mapToTuples())
     .then((tuples) => runCallbacks(tuples));
 };
 
