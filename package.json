@@ -13,8 +13,7 @@
   },
   "dependencies": {
     "commander": "^2.9.0",
-    "nodegit": "^0.16.0",
-    "nodegit-kit": "^0.13.0",
+    "simple-git": "^1.70.0",
     "string-align": "^0.2.0"
   },
   "repository": {

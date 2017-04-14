@@ -1,4 +1,4 @@
-const gitCounter = require("./gitCounter.js");
+const gitCounter = require("./util/gitCounter.js");
 
 class GitHotspots{
     constructor(settings) {
@@ -24,7 +24,7 @@ class GitHotspots{
     }
     
     getHotspots(callback) {
-        gitCounter.getHotspots(this.repo, callback, this.amount, this.verbose);
+        gitCounter(this.repo, callback, this.amount, this.verbose);
     }
 }
 
