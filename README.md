@@ -2,8 +2,6 @@ git-hotspots
 ---
 A console tool to show the most changed files in a git repository.
 
-(currently moving things around in the repo is kinda broken, even via git mv)
-
 ### Why?
 Seeing the most-commited-to files can help you decide which files could use the most refactoring and restructuring into separate modules, instead of wasting your time on parts that no one will ever touch.
 
