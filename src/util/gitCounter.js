@@ -6,12 +6,9 @@ const defRepoDir = ".git";
 let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
     let getFileLogs = function(files) {
         const git = simpleGit(repoDir);
-
-        return new Promise((resolve, reject) => {
-            let filesCount = [];
-            let filesResolved = 0;
-            
-            files.forEach(function(file) {
+        
+        files = files.map(function(file) {
+            return new Promise((resolve, reject) => {
                 git.raw(
                 ['log',
                 '--follow',
@@ -20,7 +17,7 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
                 file],
                 (err, result) => {
                     if (err == null) {
-                        filesCount.push({
+                        resolve({
                             file,
                             count: result.trim().split(/\r?\n/).length
                         });
@@ -28,15 +25,15 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
                     else {
                         reject(err);                    
                     }
-                    
-                    filesResolved += 1;
-                    
-                    if (filesResolved === files.length) {
-                        resolve(filesCount);
-                    }
                 });
-            });
+            })
         });
+
+        return files;
+    }
+
+    let resolveFiles = function(filesPromises) {
+        return Promise.all(filesPromises)
     }
     
     let sortFiles = function(filesCount) {
@@ -63,6 +60,7 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
     
     getRepoFiles(repoDir)
     .then((files) => getFileLogs(files))
+    .then((filesPromises) => resolveFiles(filesPromises))
     .then((filesCount) => sortFiles(filesCount))
     .then((filesCount) => runCallbacks(filesCount))
 };
