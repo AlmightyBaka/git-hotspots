@@ -1,11 +1,10 @@
-const gochan = require('gochan')
+const gochan = require('gochan');
 
 const simpleGit = require('simple-git'),
-getRepoFiles = require('./getRepoFiles.js');
+getRepoFiles = require('./getRepoFiles.js'),
+logger = require('./logger.js').get();
 
-const defRepoDir = ".git";
-
-let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
+let getHotspots = function (repoDir, callback, amount = 10) {
     let getFileLogs = function(files) {
         const git = simpleGit(repoDir);
         const exec = require('child_process').exec;
@@ -18,25 +17,26 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
         files = files.map(function(file, index) {
             return new Promise((resolve, reject) => {
                 tokens.get((err, token) => {
-                    console.log(token, ' started reading file: ', file)
+                    logger.verbose(token, ' started reading file: ', file)
                     
                     exec('git --git-dir ' + repoDir + '/.git log --follow --oneline -- ' + file,
                     (err, stdout, stderr) => {
                         if (err == null && stderr == "") {
-                            console.log("finished reading file: " + stdout.trim().split(/\r?\n/).length + ' ' + file)
-                            console.log(`index: ${index}, token: ${token}`)
-                            console.log("\n")
+                            let count = stdout.trim().split(/\r?\n/).length;
+
+                            logger.verbose(`finished reading file: ${count} ${file}`)
+                            logger.verbose(`index: ${index}, token: ${token}\n`)
                             
                             tokens.put(token)
                             
                             resolve({
                                 file,
-                                count: stdout.trim().split(/\r?\n/).length
+                                count
                             });
                         }
                         else {
-                            console.log(err)
-                            console.log(stderr)
+                            logger.error(err)
+                            logger.error(stderr)
                             
                             tokens.put(token)                            
                             
@@ -52,7 +52,7 @@ let getHotspots = function (repoDir, callback, amount = 10, verbose = false) {
             })
         });
         
-        console.log('total files count: ', files.length)
+        logger.verbose('total files count: ', files.length)
         return files;
     }
     

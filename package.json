@@ -15,7 +15,8 @@
     "commander": "^2.9.0",
     "gochan": "^0.1.2",
     "simple-git": "^1.70.0",
-    "string-align": "^0.2.0"
+    "string-align": "^0.2.0",
+    "winston": "^2.3.1"
   },
   "repository": {
     "type": "git",
