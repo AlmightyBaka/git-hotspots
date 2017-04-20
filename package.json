@@ -12,6 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "ansi-256-colors": "^1.1.0",
     "commander": "^2.9.0",
     "gochan": "^0.1.2",
     "simple-git": "^1.70.0",
