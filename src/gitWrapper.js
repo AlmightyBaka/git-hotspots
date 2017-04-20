@@ -29,5 +29,3 @@ let listPrint = function (repo, amount = 10, verbose = false) {
 };
 
 module.exports.listPrint = listPrint;
-
-//VERSION

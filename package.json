@@ -1,6 +1,6 @@
 {
   "name": "git-hotspots",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shows the most changed files in a git repository.",
   "author": "Almighty Baka <ivanfedulov@almightybaka.com>",
   "license": "MIT",

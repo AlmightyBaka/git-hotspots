@@ -6,7 +6,7 @@ gitWrapper = require("./gitWrapper.js");
 // TODO: branch selection
 
 program
-.version("0.0.1")
+.version("0.2.0")
 .command('list [directory]')
 .description("list top 10 most-changed files")
 .option('-a, --amount [n]', "list top n most-changed files", 10)
