@@ -73,7 +73,7 @@ let getHotspots = function (repoDir, callback, amount = 10) {
     
     let runCallbacks = function(filesCount) {
         if (amount !== null) {
-            filesCount.splice(amount - 1, filesCount.length - amount - 1);
+            filesCount.splice(amount, filesCount.length - amount);
         }
         
         callback(filesCount);
