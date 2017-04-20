@@ -5,14 +5,17 @@ const GitHotspots = require("./gitHotspots.js");
 let listPrint = function (repo, amount = 10, verbose = false) {
     // TODO: colored output
     // TODO: select only last n days
-    console.log(`${align("commits", 10, 'left')}   ${align("filename", 30, 'left')}`);
 
     new GitHotspots()
     .setRepo(repo)
     .setAmount(amount)
     .setLogLevel(verbose ? 'verbose' : 'info')
-    .getHotspots((filename, count) => {
-        console.log(`${align(count, 10, 'left')}   ${align(filename, 30, 'left')}`);
+    .getHotspots((filesCount) => {
+        console.log(`${align("commits", 10, 'left')}   ${align("filename", 30, 'left')}`);
+        
+        filesCount.forEach(function(fileCount) {
+            console.log(`${align(fileCount.count, 10, 'left')}   ${align(fileCount.file, 30, 'left')}`);
+        });
     });
 };
 

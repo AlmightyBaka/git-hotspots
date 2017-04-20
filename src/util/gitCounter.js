@@ -23,7 +23,7 @@ let getHotspots = function (repoDir, callback, amount = 10) {
                     (err, stdout, stderr) => {
                         if (err == null && stderr == "") {
                             let count = stdout.trim().split(/\r?\n/).length;
-
+                            
                             logger.verbose(`finished reading file: ${count} ${file}`)
                             logger.verbose(`index: ${index}, token: ${token}\n`)
                             
@@ -72,14 +72,11 @@ let getHotspots = function (repoDir, callback, amount = 10) {
     }
     
     let runCallbacks = function(filesCount) {
-        for (let i = 0; i < amount; i++) {
-            if (i < filesCount.length) {
-                callback(filesCount[i].file, filesCount[i].count);
-            }
-            else {
-                return;
-            }
+        if (amount !== null) {
+            filesCount.splice(amount - 1, filesCount.length - amount - 1);
         }
+        
+        callback(filesCount);
     }
     
     getRepoFiles(repoDir)
