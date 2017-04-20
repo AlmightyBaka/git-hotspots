@@ -1,7 +1,7 @@
 const gochan = require('gochan');
 
 const simpleGit = require('simple-git'),
-getRepoFiles = require('./getRepoFiles.js'),
+getRepoFiles = require('./gitGetRepoFiles.js'),
 logger = require('./logger.js').get();
 
 let getHotspots = function (repoDir, callback, amount = 10) {
