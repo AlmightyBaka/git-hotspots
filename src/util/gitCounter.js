@@ -4,9 +4,9 @@ const simpleGit = require('simple-git'),
 getRepoFiles = require('./gitGetRepoFiles.js'),
 logger = require('./logger.js').get();
 
-let getHotspots = function (repoDir, callback, amount = 10) {
+let getHotspots = function (settings, callback) {
     let getFileLogs = function(files) {
-        const git = simpleGit(repoDir);
+        const git = simpleGit(settings.repo);
         const exec = require('child_process').exec;
         const tokens = gochan();
         
@@ -19,7 +19,7 @@ let getHotspots = function (repoDir, callback, amount = 10) {
                 tokens.get((err, token) => {
                     logger.verbose(token, ' started reading file: ', file)
                     
-                    exec('git --git-dir ' + repoDir + '/.git log --follow --oneline -- ' + file,
+                    exec('git --git-dir ' + settings.repo + '/.git log --follow --oneline -- ' + file,
                     (err, stdout, stderr) => {
                         if (err == null && stderr == "") {
                             let count = stdout.trim().split(/\r?\n/).length;
@@ -72,14 +72,14 @@ let getHotspots = function (repoDir, callback, amount = 10) {
     }
     
     let runCallbacks = function(filesCount) {
-        if (amount !== null) {
-            filesCount.splice(amount, filesCount.length - amount);
+        if (settings.amount !== null) {
+            filesCount.splice(settings.amount, filesCount.length - settings.amount);
         }
         
         callback(filesCount);
     }
     
-    getRepoFiles(repoDir)
+    getRepoFiles(settings.repo)
     .then((files) => getFileLogs(files))
     .then((filesPromises) => resolveFiles(filesPromises))
     .then((filesCount) => sortFiles(filesCount))

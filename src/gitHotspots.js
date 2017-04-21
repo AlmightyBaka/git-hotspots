@@ -4,32 +4,34 @@ logger = require('./util/logger.js');
 class GitHotspots{
     constructor(settings) {
         settings = settings || {};
-        this.repo = typeof settings.repo === "string"? settings.repo : undefined;
-        this.amount = typeof settings.amount === "number"? settings.amount : 10;
-        this.logLevel = typeof settings.logLevel === "string"? settings.logLevel : 'info';
+        settings.repo = typeof settings.repo === "string"? settings.repo : undefined;
+        settings.amount = typeof settings.amount === "number"? settings.amount : 10;
+        settings.logLevel = typeof settings.logLevel === "string"? settings.logLevel : 'info';
         
+        this.settings = settings;
+
         logger.setLevel(this.logLevel);
     }
     
     setRepo(dir) {
-        this.repo = dir;
+        this.settings.repo = dir;
         return this;
     }
     
     setAmount(amount) {
-        this.amount = amount;
+        this.settings.amount = amount;
         return this;
     }
     
     setLogLevel(logLevel) {
-        this.logLevel = logLevel;
+        this.settings.logLevel = logLevel;
         logger.setLevel(this.logLevel);        
         
         return this;
     }
     
     getHotspots(callback) {
-        gitCounter(this.repo, callback, this.amount);
+        gitCounter(this.settings, callback);
     }
 }
 
