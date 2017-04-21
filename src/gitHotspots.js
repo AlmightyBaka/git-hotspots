@@ -32,6 +32,7 @@ class GitHotspots{
     
     getHotspots(callback) {
         gitCounter(this.settings, callback);
+        return this;
     }
 }
 
