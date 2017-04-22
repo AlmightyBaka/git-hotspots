@@ -1,59 +1,7 @@
-const gochan = require('gochan');
-
 const getRepoFiles = require('./gitGetRepoFiles.js'),
-logger = require('./logger.js').get();
+getFileLogs = require('./gitGetFileLogs.js');
 
 let getHotspots = function (settings, callback) {
-    let getFileLogs = function(files) {
-        const exec = require('child_process').exec;
-        const tokens = gochan();
-        
-        for (var i = 0; i < 250; i++) {
-            tokens.put(i)
-        }
-        
-        files = files.map(function(file, index) {
-            return new Promise((resolve, reject) => {
-                tokens.get((err, token) => {
-                    logger.verbose(`${token} started reading file: ${file}`)
-                    
-                    exec(`git --git-dir ${settings.repo}/.git log --follow --oneline -- ${file}`,
-                    (err, stdout, stderr) => {
-                        if (err == null && stderr == "") {
-                            let count = stdout.trim().split(/\r?\n/).length;
-                            
-                            logger.verbose(`finished reading file: ${count} ${file}`)
-                            logger.verbose(`index: ${index}, token: ${token}\n`)
-                            
-                            tokens.put(token)
-                            
-                            resolve({
-                                file,
-                                count
-                            });
-                        }
-                        else {
-                            logger.error(err)
-                            logger.error(stderr)
-                            
-                            tokens.put(token)                            
-                            
-                            if (err == null) {
-                                reject(stderr)
-                            }
-                            else {
-                                reject(err);                    
-                            }
-                        }
-                    });
-                })
-            })
-        });
-        
-        logger.verbose(`total files count: ${files.length}`)
-        return files;
-    }
-    
     let resolveFiles = function(filesPromises) {
         return Promise.all(filesPromises)
     }
@@ -78,7 +26,7 @@ let getHotspots = function (settings, callback) {
     }
     
     getRepoFiles(settings.repo)
-    .then((files) => getFileLogs(files))
+    .then((files) => getFileLogs(settings.repo, files))
     .then((filesPromises) => resolveFiles(filesPromises))
     .then((filesCount) => sortFiles(filesCount))
     .then((filesCount) => runCallbacks(filesCount))
