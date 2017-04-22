@@ -3,11 +3,11 @@ colors = require('ansi-256-colors');
 
 const GitHotspots = require("./gitHotspots.js");
 
-let listPrint = function (repo, amount = 10, verbose = false) {
+let listPrint = function (repo, amount = 10, verbose = 'info') {
     new GitHotspots()
     .setRepo(repo)
     .setAmount(amount)
-    .setLogLevel(verbose ? 'verbose' : 'info')
+    .setLogLevel(verbose)
     .getHotspots((filesCount) => {
         console.log(`${align("commits", 10, 'left')}   ${align("filename", 30, 'left')}`);
         let yellow = 0;
