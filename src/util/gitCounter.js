@@ -26,7 +26,7 @@ let getHotspots = function (settings, callback) {
     }
     
     getRepoFiles(settings.repo)
-    .then((files) => getFileLogs(settings.repo, files))
+    .then((files) => getFileLogs(settings.repo, settings.threads, files))
     .then((filesPromises) => resolveFiles(filesPromises))
     .then((filesCount) => sortFiles(filesCount))
     .then((filesCount) => runCallbacks(filesCount))

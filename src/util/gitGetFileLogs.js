@@ -5,10 +5,12 @@ const logger = require('./logger.js').get();
 
 const tokens = gochan();
 
-let getFileLogs = function(repo, files) {
+let getFileLogs = function(repo, threads, files) {
+    logger.verbose(`getting file logs...`)
+
     let execGit = (file, index, resolve, reject) => {
         tokens.get((err, token) => {
-            logger.verbose(`${token} started reading file: ${file}`)
+            logger.verbose(`thread #${token}: started reading file: ${file}`)
             
             exec(`git --git-dir ${repo}/.git log --follow --oneline -- ${file}`,
             (err, stdout, stderr) => {
@@ -16,7 +18,7 @@ let getFileLogs = function(repo, files) {
                     let count = stdout.trim().split(/\r?\n/).length
                     
                     logger.verbose(`finished reading file: ${count} ${file}`)
-                    logger.verbose(`index: ${index}, token: ${token}\n`)
+                    logger.verbose(`file #${index}, thread #${token}\n`)
                     
                     tokens.put(token)
                     
@@ -42,7 +44,7 @@ let getFileLogs = function(repo, files) {
         })
     }
     
-    for (var i = 0; i < 250; i++) {
+    for (var i = 0; i < threads; i++) {
         tokens.put(i)
     }
     

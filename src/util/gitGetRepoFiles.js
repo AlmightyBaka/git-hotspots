@@ -3,6 +3,8 @@ logger = require('./logger.js').get();
 
 let getRepoFiles = function (repo) {
     return new Promise((resolve, reject) => {
+        logger.verbose(`getting repository files...`)
+        
         exec(`git --git-dir ${repo}/.git ls-files`,
         (err, stdout, stderr) => {
             if (err == null && stderr == "") {

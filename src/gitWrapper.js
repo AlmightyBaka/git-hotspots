@@ -3,11 +3,12 @@ const align = require('string-align'),
 
 const GitHotspots = require("./gitHotspots.js");
 
-let listPrint = function (repo, amount = 10, verbose = 'info') {
+let listPrint = function (repo, amount = 10, logLevel = 'info', threads = 250) {
     new GitHotspots()
     .setRepo(repo)
     .setAmount(amount)
-    .setLogLevel(verbose)
+    .setThreads(threads)
+    .setLogLevel(logLevel)
     .getHotspots((filesCount) => {
         console.log(`${align("commits", 10, 'left')}   ${align("filename", 30, 'left')}`);
 
