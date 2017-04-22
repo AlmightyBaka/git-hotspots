@@ -1,12 +1,10 @@
 const gochan = require('gochan');
 
-const simpleGit = require('simple-git'),
-getRepoFiles = require('./gitGetRepoFiles.js'),
+const getRepoFiles = require('./gitGetRepoFiles.js'),
 logger = require('./logger.js').get();
 
 let getHotspots = function (settings, callback) {
     let getFileLogs = function(files) {
-        const git = simpleGit(settings.repo);
         const exec = require('child_process').exec;
         const tokens = gochan();
         
@@ -56,7 +54,7 @@ let getHotspots = function (settings, callback) {
         return files;
     }
     
-    let resolveFiles = async function(filesPromises) {
+    let resolveFiles = function(filesPromises) {
         return Promise.all(filesPromises)
     }
     
