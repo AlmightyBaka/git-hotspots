@@ -1,20 +1,24 @@
-const simpleGit = require('simple-git');
+const exec = require('child_process').exec,
+logger = require('./logger.js').get();
 
-let getRepoFiles = function (repoDir) {
-    const git = simpleGit(repoDir);
-    
+let getRepoFiles = function (repo) {
     return new Promise((resolve, reject) => {
-        git.raw(
-        ['--git-dir',
-        repoDir + '/.git',
-        'ls-files']
-        , (err, result) => {
-            if (err == null) {
-                let files = result.trim().split(/\r?\n/);
+        exec(`git --git-dir ${repo}/.git ls-files`,
+        (err, stdout, stderr) => {
+            if (err == null && stderr == "") {
+                let files = stdout.trim().split(/\r?\n/);
                 resolve(files);
             }
             else {
-                return reject(err);
+                logger.error(err)
+                logger.error(stderr)
+                
+                if (err == null) {
+                    reject(stderr)
+                }
+                else {
+                    reject(err);                    
+                }
             }
         });
     });

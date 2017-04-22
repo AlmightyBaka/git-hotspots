@@ -15,9 +15,9 @@ let getHotspots = function (settings, callback) {
         files = files.map(function(file, index) {
             return new Promise((resolve, reject) => {
                 tokens.get((err, token) => {
-                    logger.verbose(token, ' started reading file: ', file)
+                    logger.verbose(`${token} started reading file: ${file}`)
                     
-                    exec('git --git-dir ' + settings.repo + '/.git log --follow --oneline -- ' + file,
+                    exec(`git --git-dir ${settings.repo}/.git log --follow --oneline -- ${file}`,
                     (err, stdout, stderr) => {
                         if (err == null && stderr == "") {
                             let count = stdout.trim().split(/\r?\n/).length;
@@ -50,7 +50,7 @@ let getHotspots = function (settings, callback) {
             })
         });
         
-        logger.verbose('total files count: ', files.length)
+        logger.verbose(`total files count: ${files.length}`)
         return files;
     }
     
