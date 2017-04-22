@@ -2,6 +2,13 @@ const gitCounter = require("./util/gitCounter.js"),
 logger = require('./util/logger.js');
 
 class GitHotspots{
+    /**
+    * @namespace
+    * @property {object}  settings           - Settings object.
+    * @property {string}  settings.repo      - Repository's directory.
+    * @property {number}  settings.amount    - Amount of files to be shown.
+    * @property {string}  settings.logLevel  - Log level ('info' or 'verbose').
+    */
     constructor(settings) {
         settings = settings || {};
         settings.repo = typeof settings.repo === "string"? settings.repo : undefined;
@@ -9,7 +16,7 @@ class GitHotspots{
         settings.logLevel = typeof settings.logLevel === "string"? settings.logLevel : 'info';
         
         this.settings = settings;
-
+        
         logger.setLevel(this.logLevel);
     }
     

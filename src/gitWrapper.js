@@ -4,9 +4,6 @@ colors = require('ansi-256-colors');
 const GitHotspots = require("./gitHotspots.js");
 
 let listPrint = function (repo, amount = 10, verbose = false) {
-    // TODO: colored output
-    // TODO: select only last n days
-
     new GitHotspots()
     .setRepo(repo)
     .setAmount(amount)
