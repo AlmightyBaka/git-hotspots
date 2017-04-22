@@ -17,7 +17,7 @@ let getFileLogs = function(repo, threads, files) {
                 if (err == null && stderr == "") {
                     let count = stdout.trim().split(/\r?\n/).length
                     
-                    logger.verbose(`finished reading file: ${count} ${file}`)
+                    logger.verbose(`finished reading file: ${count} changes ${file}`)
                     logger.verbose(`file #${index}, thread #${token}\n`)
                     
                     tokens.put(token)
