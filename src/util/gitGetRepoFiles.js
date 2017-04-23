@@ -7,7 +7,7 @@ let getRepoFiles = function (repo) {
         
         exec(`git --git-dir ${repo}/.git ls-files`,
         (err, stdout, stderr) => {
-            if (err == null && stderr == "") {
+            if (err == null && stderr == '') {
                 let files = stdout.trim().split(/\r?\n/)
                 resolve(files)
             }

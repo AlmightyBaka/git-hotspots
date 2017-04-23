@@ -1,4 +1,4 @@
-const gitCounter = require("./util/gitCounter.js"),
+const gitCounter = require('./util/gitCounter.js'),
 logger = require('./util/logger.js')
 
 class GitHotspots{
@@ -12,10 +12,10 @@ class GitHotspots{
     */
     constructor(settings) {
         settings = settings || {}
-        settings.repo = typeof settings.repo === "string"? settings.repo : undefined
-        settings.amount = typeof settings.amount === "number"? settings.amount : 10
-        settings.threads = typeof settings.threads === "number"? settings.threads : 250
-        settings.logLevel = typeof settings.logLevel === "string"? settings.logLevel : 'info'
+        settings.repo = typeof settings.repo === 'string'? settings.repo : undefined
+        settings.amount = typeof settings.amount === 'number'? settings.amount : 10
+        settings.threads = typeof settings.threads === 'number'? settings.threads : 250
+        settings.logLevel = typeof settings.logLevel === 'string'? settings.logLevel : 'info'
         
         this.settings = settings
         

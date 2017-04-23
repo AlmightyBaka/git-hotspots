@@ -14,7 +14,7 @@ let getFileLogs = function(repo, threads, files) {
             
             exec(`git --git-dir ${repo}/.git log --follow --oneline -- ${file}`,
             (err, stdout, stderr) => {
-                if (err == null && stderr == "") {
+                if (err == null && stderr == '') {
                     let count = stdout.trim().split(/\r?\n/).length
                     
                     logger.verbose(`finished reading file: ${count} changes ${file}`)

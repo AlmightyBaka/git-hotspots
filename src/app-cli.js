@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-const program = require("commander"),
-gitWrapper = require("./gitWrapper.js")
+const program = require('commander'),
+gitWrapper = require('./gitWrapper.js')
 
 program
-.version("0.2.0")
+.version('0.2.0')
 .command('list [directory]')
-.description("list top 10 most-changed files")
-.option('-a, --amount [n]', "list top n most-changed files (10 by default)", 10)
-.option('-t, --threads [n]', "maximum amount of threads running concurrently (250 by default)", 250)
-.option('-v, --verbose', "verbose output")
+.description('list top 10 most-changed files')
+.option('-a, --amount [n]', 'list top n most-changed files (10 by default)', 10)
+.option('-t, --threads [n]', 'maximum amount of threads running concurrently (250 by default)', 250)
+.option('-v, --verbose', 'verbose output')
 .action(function (dir, options) {
     dir = dir ? dir : process.cwd()
     

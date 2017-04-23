@@ -1,7 +1,7 @@
 const align = require('string-align'),
     colors = require('ansi-256-colors')
 
-const GitHotspots = require("./gitHotspots.js")
+const GitHotspots = require('./gitHotspots.js')
 
 let listPrint = function (repo, amount = 10, logLevel = 'info', threads = 250) {
     new GitHotspots()
@@ -10,7 +10,7 @@ let listPrint = function (repo, amount = 10, logLevel = 'info', threads = 250) {
     .setThreads(threads)
     .setLogLevel(logLevel)
     .getHotspots((filesCount) => {
-        console.log(`${align("commits", 10, 'left')}   ${align("filename", 30, 'left')}`)
+        console.log(`${align('commits', 10, 'left')}   ${align('filename', 30, 'left')}`)
 
         let [yellow, colorIndex] = [0, -1]
 
