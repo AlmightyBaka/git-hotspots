@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
+const fs = require('fs'),
+path = require('path')
+
 const program = require('commander'),
 gitWrapper = require('./gitWrapper.js')
 
 program
-.version('0.2.0')
+.version(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8')).version)
 .command('list [directory]')
 .description('list top 10 most-changed files')
 .option('-a, --amount [n]', 'list top n most-changed files (10 by default)', 10)
