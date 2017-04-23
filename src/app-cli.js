@@ -3,8 +3,6 @@
 const program = require("commander"),
 gitWrapper = require("./gitWrapper.js")
 
-// TODO: branch selection
-
 program
 .version("0.2.0")
 .command('list [directory]')
