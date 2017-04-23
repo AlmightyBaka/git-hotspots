@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require("commander"),
-gitWrapper = require("./gitWrapper.js");
+gitWrapper = require("./gitWrapper.js")
 
 // TODO: branch selection
 
@@ -13,13 +13,13 @@ program
 .option('-t, --threads [n]', "maximum amount of threads running concurrently (250 by default)", 250)
 .option('-v, --verbose', "verbose output")
 .action(function (dir, options) {
-    dir = dir ? dir : process.cwd();
+    dir = dir ? dir : process.cwd()
     
-    gitWrapper.listPrint(dir, options.amount, options.verbose? 'verbose' : 'info', options.threads);
-});
+    gitWrapper.listPrint(dir, options.amount, options.verbose? 'verbose' : 'info', options.threads)
+})
 
-program.parse(process.argv);
+program.parse(process.argv)
 
 if (!program.args.length) {
-    program.help();
+    program.help()
 }

@@ -1,7 +1,7 @@
 const align = require('string-align'),
-    colors = require('ansi-256-colors');
+    colors = require('ansi-256-colors')
 
-const GitHotspots = require("./gitHotspots.js");
+const GitHotspots = require("./gitHotspots.js")
 
 let listPrint = function (repo, amount = 10, logLevel = 'info', threads = 250) {
     new GitHotspots()
@@ -10,20 +10,20 @@ let listPrint = function (repo, amount = 10, logLevel = 'info', threads = 250) {
     .setThreads(threads)
     .setLogLevel(logLevel)
     .getHotspots((filesCount) => {
-        console.log(`${align("commits", 10, 'left')}   ${align("filename", 30, 'left')}`);
+        console.log(`${align("commits", 10, 'left')}   ${align("filename", 30, 'left')}`)
 
-        let [yellow, colorIndex] = [0, -1];
+        let [yellow, colorIndex] = [0, -1]
 
         filesCount.forEach(function(fileCount) {
-            colorIndex++;
+            colorIndex++
             if (colorIndex == Math.floor(filesCount.length / 5)) {
-                yellow++;
-                colorIndex = -1;
+                yellow++
+                colorIndex = -1
             }
 
-            console.log(`${colors.fg.getRgb(5, yellow, 0)}${align(fileCount.count, 10, 'left')}   ${align(fileCount.file, 30, 'left')}${colors.reset}`);
-        });
-    });
-};
+            console.log(`${colors.fg.getRgb(5, yellow, 0)}${align(fileCount.count, 10, 'left')}   ${align(fileCount.file, 30, 'left')}${colors.reset}`)
+        })
+    })
+}
 
-module.exports.listPrint = listPrint;
+module.exports.listPrint = listPrint

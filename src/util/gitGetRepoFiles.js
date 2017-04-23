@@ -1,5 +1,5 @@
 const exec = require('child_process').exec,
-logger = require('./logger.js').get();
+logger = require('./logger.js').get()
 
 let getRepoFiles = function (repo) {
     return new Promise((resolve, reject) => {
@@ -8,8 +8,8 @@ let getRepoFiles = function (repo) {
         exec(`git --git-dir ${repo}/.git ls-files`,
         (err, stdout, stderr) => {
             if (err == null && stderr == "") {
-                let files = stdout.trim().split(/\r?\n/);
-                resolve(files);
+                let files = stdout.trim().split(/\r?\n/)
+                resolve(files)
             }
             else {
                 logger.error(err)
@@ -19,11 +19,11 @@ let getRepoFiles = function (repo) {
                     reject(stderr)
                 }
                 else {
-                    reject(err);                    
+                    reject(err)                    
                 }
             }
-        });
-    });
+        })
+    })
 }
 
-module.exports = getRepoFiles;
+module.exports = getRepoFiles

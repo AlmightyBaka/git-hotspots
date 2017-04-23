@@ -2,11 +2,11 @@ const winston = require('winston')
 
 let logger = {
     get: () => {
-        return winston;
+        return winston
     },
     setLevel: (level) => {
-        winston.level = level;
+        winston.level = level
     }
 }
 
-module.exports = logger;
+module.exports = logger

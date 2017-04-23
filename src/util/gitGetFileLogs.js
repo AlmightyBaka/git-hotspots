@@ -1,9 +1,9 @@
 const exec = require('child_process').exec,
-gochan = require('gochan');
+gochan = require('gochan')
 
-const logger = require('./logger.js').get();
+const logger = require('./logger.js').get()
 
-const tokens = gochan();
+const tokens = gochan()
 
 let getFileLogs = function(repo, threads, files) {
     logger.verbose(`getting file logs...`)
@@ -25,7 +25,7 @@ let getFileLogs = function(repo, threads, files) {
                     resolve({
                         file,
                         count
-                    });
+                    })
                 }
                 else {
                     logger.error(err)
@@ -37,24 +37,24 @@ let getFileLogs = function(repo, threads, files) {
                         reject(stderr)
                     }
                     else {
-                        reject(err);                    
+                        reject(err)                    
                     }
                 }
-            });
+            })
         })
     }
     
-    for (var i = 0; i < threads; i++) {
+    for (let i = 0; i < threads; i++) {
         tokens.put(i)
     }
     
     files = files.map(function(file, index) {
         return new Promise((resolve, reject) => execGit(file, index, resolve, reject))
-    });
+    })
     
     logger.verbose(`total files count: ${files.length}`)
     
-    return files;
+    return files
 }
 
-module.exports = getFileLogs;
+module.exports = getFileLogs
