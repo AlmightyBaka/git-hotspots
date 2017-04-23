@@ -13,7 +13,7 @@ let getFileLogs = function(repo, threads, files) {
         tokens.get((err, token) => {
             logger.verbose(`thread #${token}: started reading file: ${file}`)
             
-            exec(`git --git-dir ${repo}/.git log --follow --oneline -- ${file}`,
+            exec(`git --git-dir ${repo}/.git log --follow --oneline -- ${file.replace(/(?=[() ])/g, '\\')}`,
             (err, stdout, stderr) => {
                 if (err == null && stderr == '') {
                     let count = stdout.trim().split(/\r?\n/).length
