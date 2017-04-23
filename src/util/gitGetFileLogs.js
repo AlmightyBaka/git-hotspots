@@ -1,5 +1,6 @@
-const exec = require('child_process').exec,
-gochan = require('gochan')
+const exec = require('child_process').exec
+
+const gochan = require('gochan')
 
 const logger = require('./logger.js').get()
 
@@ -7,7 +8,7 @@ const tokens = gochan()
 
 let getFileLogs = function(repo, threads, files) {
     logger.verbose(`getting file logs...`)
-
+    
     let execGit = (file, index, resolve, reject) => {
         tokens.get((err, token) => {
             logger.verbose(`thread #${token}: started reading file: ${file}`)
@@ -28,17 +29,9 @@ let getFileLogs = function(repo, threads, files) {
                     })
                 }
                 else {
-                    logger.error(err)
-                    logger.error(stderr)
-                    
                     tokens.put(token)                            
-                    
-                    if (err == null) {
-                        reject(stderr)
-                    }
-                    else {
-                        reject(err)                    
-                    }
+
+                    reject(err)                    
                 }
             })
         })

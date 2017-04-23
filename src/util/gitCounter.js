@@ -1,5 +1,6 @@
 const getRepoFiles = require('./gitGetRepoFiles.js'),
-getFileLogs = require('./gitGetFileLogs.js')
+getFileLogs = require('./gitGetFileLogs.js'),
+logger = require('./logger.js').get();
 
 let getHotspots = function (settings, callback) {
     let resolveFiles = function(filesPromises) {
@@ -30,6 +31,9 @@ let getHotspots = function (settings, callback) {
     .then((filesPromises) => resolveFiles(filesPromises))
     .then((filesCount) => sortFiles(filesCount))
     .then((filesCount) => runCallbacks(filesCount))
+    .catch((error) => {
+        logger.error(error)
+    })
 }
 
 module.exports = getHotspots

@@ -1,5 +1,6 @@
-const exec = require('child_process').exec,
-logger = require('./logger.js').get()
+const exec = require('child_process').exec
+
+const logger = require('./logger.js').get()
 
 let getRepoFiles = function (repo) {
     return new Promise((resolve, reject) => {
@@ -12,15 +13,7 @@ let getRepoFiles = function (repo) {
                 resolve(files)
             }
             else {
-                logger.error(err)
-                logger.error(stderr)
-                
-                if (err == null) {
-                    reject(stderr)
-                }
-                else {
-                    reject(err)                    
-                }
+                reject(err)                    
             }
         })
     })
