@@ -3,8 +3,9 @@
 const fs = require('fs'),
 path = require('path')
 
-const program = require('commander'),
-gitWrapper = require('./gitWrapper.js')
+const program = require('commander')
+
+const gitWrapper = require('./gitWrapper.js')
 
 program
 .version(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8')).version)

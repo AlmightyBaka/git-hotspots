@@ -1,5 +1,5 @@
 const align = require('string-align'),
-    colors = require('ansi-256-colors')
+colors = require('ansi-256-colors')
 
 const GitHotspots = require('./gitHotspots.js')
 
