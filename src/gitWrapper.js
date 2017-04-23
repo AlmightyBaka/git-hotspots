@@ -9,7 +9,7 @@ let listPrint = function (repo, amount = 10, logLevel = 'info', threads = 250) {
     .setAmount(amount)
     .setThreads(threads)
     .setLogLevel(logLevel)
-    .getHotspots((filesCount) => {
+    .getHotspots(filesCount => {
         console.log(`${align('commits', 10, 'left')}   ${align('filename', 30, 'left')}`)
 
         let [yellow, colorIndex] = [0, -1]
