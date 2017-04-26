@@ -22,3 +22,18 @@ To specify the amount of listed files:
 ```
 git-hotspots list -a [number, default is 10]
 ```
+To limit log output use --since, --until, and --author flags (usage is the same as when using git log with corresponding flags, see [here](https://git-scm.com/book/tr/v2/Git-Basics-Viewing-the-Commit-History#_limiting_log_output) for available formats)
+```
+git-hotspots list --since "1 week" --until "yesterday" --author "John"
+```
+
+### Changelog
+```
+0.3.0 - added --verbose, --threads, --since, --until, --author flags
+```
+```
+0.2.0 - switched to system-installed git, results are now the same as when running git's log command itself
+```
+```
+0.1.0 - intial release
+```
