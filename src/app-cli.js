@@ -22,9 +22,9 @@ program
     
     gitWrapper.listPrint({
         repo: dir,
-        amount: options.amount,
+        amount: Number(options.amount),
         logLevel: options.verbose? 'verbose' : 'info',
-        threads: options.threads,
+        threads: Number(options.threads),
         since: options.since,
         until: options.until,
         author: options.author
