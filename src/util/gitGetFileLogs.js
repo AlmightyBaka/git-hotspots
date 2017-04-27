@@ -1,6 +1,7 @@
 const exec = require('child_process').exec
 
-const gochan = require('gochan')
+const gochan = require('gochan'),
+ProgressBar = require('progress')
 
 const logger = require('./logger.js').get()
 
@@ -8,6 +9,10 @@ const tokens = gochan()
 
 let getFileLogs = function(files, settings) {
     logger.verbose(`getting file logs...`)
+    const bar = new ProgressBar('processing: [:bar] :percent ETA: :etas', {
+        total: files.length,
+        width: 20
+    })
     
     let execGit = (file, index, resolve, reject) => {
         tokens.get((err, token) => {
@@ -28,6 +33,8 @@ let getFileLogs = function(files, settings) {
                         logger.verbose(`file #${index}, thread #${token}\n`)
                         
                         tokens.put(token)
+
+                        bar.tick()
                         
                         resolve({
                             file,
@@ -35,6 +42,13 @@ let getFileLogs = function(files, settings) {
                         })
                     }
                     else {
+                        logger.verbose(`finished reading file: ${count} changes ${file}`)
+                        logger.verbose(`file #${index}, thread #${token}\n`)
+                        
+                        tokens.put(token)
+
+                        bar.tick()
+
                         resolve()
                     }
                 }
@@ -46,7 +60,7 @@ let getFileLogs = function(files, settings) {
             })
         })
     }
-    
+
     for (let i = 0; i < settings.threads; i++) {
         tokens.put(i)
     }
