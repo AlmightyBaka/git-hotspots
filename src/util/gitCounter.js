@@ -24,12 +24,19 @@ let getHotspots = function (settings, resolve, reject) {
 
         return filesCount
     }
+
+    let filterUndefined = function (filesCount) {
+        filesCount = filesCount.filter(element => element !== undefined)
+
+        return filesCount;
+    }
     
     getRepoFiles(settings.repo)
     .then(files => getFileLogs(files, settings))
     .then(filesPromises => resolveFilePromises(filesPromises))
     .then(filesCount => sortFiles(filesCount))
     .then(filesCount => spliceFiles(filesCount))
+    .then(filesCount => filterUndefined(filesCount))
     .then(filesCount => resolve(filesCount))
     .catch(error => reject(error))
 }
