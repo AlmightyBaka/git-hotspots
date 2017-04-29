@@ -15,13 +15,21 @@ class GitHotspots{
     */
     constructor(settings) {
         settings = settings || {}
-        settings.repo = typeof settings.repo === 'string'? settings.repo : '.'
-        settings.amount = typeof settings.amount === 'number'? settings.amount : 10
-        settings.threads = typeof settings.threads === 'number'? settings.threads : 250
-        settings.logLevel = typeof settings.logLevel === 'string'? settings.logLevel : 'info'
-        settings.since = typeof settings.since === 'string'? settings.since : ''
-        settings.until = typeof settings.until === 'string'? settings.until : ''
-        settings.author = typeof settings.author === 'string'? settings.author : ''
+
+        settings.repo = typeof settings.repo === 'string'?
+            settings.repo : '.'
+        settings.amount = typeof settings.amount === 'number'?
+            settings.amount : 10
+        settings.threads = typeof settings.threads === 'number'?
+            settings.threads : 250
+        settings.logLevel = typeof settings.logLevel === 'string'?
+            settings.logLevel : 'info'
+        settings.since = typeof settings.since === 'string'?
+            settings.since : ''
+        settings.until = typeof settings.until === 'string'?
+            settings.until : ''
+        settings.author = typeof settings.author === 'string'?
+            settings.author : ''
         
         this.settings = settings
         
@@ -65,9 +73,9 @@ class GitHotspots{
         return this
     }
     
-    getHotspots(callback) {
-        gitCounter(this.settings, callback)
-        return this
+    getHotspots() {
+        return new Promise((resolve, reject) =>
+            gitCounter(this.settings, resolve, reject))
     }
 }
 

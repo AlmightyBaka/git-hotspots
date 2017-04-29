@@ -21,7 +21,8 @@ let listPrint = function ({
         author,
         threads
     })
-    .getHotspots(filesCount => {
+    .getHotspots()
+    .then(filesCount => {
         console.log(`${align('commits', 10, 'left')}   ${align('filename', 30, 'left')}`)
         
         let [yellow, colorIndex] = [0, -1]
@@ -38,6 +39,7 @@ let listPrint = function ({
             }
         })
     })
+    .catch(error => console.log(error))
 }
 
 module.exports.listPrint = listPrint

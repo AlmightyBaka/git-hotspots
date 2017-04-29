@@ -1,9 +1,8 @@
 const getRepoFiles = require('./gitGetRepoFiles.js'),
-getFileLogs = require('./gitGetFileLogs.js'),
-logger = require('./logger.js').get();
+getFileLogs = require('./gitGetFileLogs.js')
 
-let getHotspots = function (settings, callback) {
-    let resolveFiles = function(filesPromises) {
+let getHotspots = function (settings, resolve, reject) {
+    let resolveFilePromises = function(filesPromises) {
         return Promise.all(filesPromises)
     }
     
@@ -18,20 +17,21 @@ let getHotspots = function (settings, callback) {
         return filesCount
     }
     
-    let runCallbacks = function(filesCount) {
+    let spliceFiles = function(filesCount) {
         if (settings.amount !== null) {
             filesCount.splice(settings.amount, filesCount.length - settings.amount)
         }
-        
-        callback(filesCount)
+
+        return filesCount
     }
     
     getRepoFiles(settings.repo)
     .then(files => getFileLogs(files, settings))
-    .then(filesPromises => resolveFiles(filesPromises))
+    .then(filesPromises => resolveFilePromises(filesPromises))
     .then(filesCount => sortFiles(filesCount))
-    .then(filesCount => runCallbacks(filesCount))
-    .catch(error => logger.error(error))
+    .then(filesCount => spliceFiles(filesCount))
+    .then(filesCount => resolve(filesCount))
+    .catch(error => reject(error))
 }
 
 module.exports = getHotspots
