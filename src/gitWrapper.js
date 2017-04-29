@@ -4,7 +4,9 @@ colors = require('ansi-256-colors')
 const GitHotspots = require('./gitHotspots.js')
 
 let listPrint = function ({
-    repo,
+    repo = '.',
+    include = '',
+    exclude = '',
     amount = 10,
     logLevel = 'info',
     since = '',
@@ -14,6 +16,8 @@ let listPrint = function ({
 }) {
     new GitHotspots({
         repo,
+        include,
+        exclude,
         amount,
         logLevel,
         since,
