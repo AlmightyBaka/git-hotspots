@@ -28,15 +28,13 @@ let listPrint = function ({
         let [yellow, colorIndex] = [0, -1]
         
         filesCount.forEach(function(fileCount) {
-            if (fileCount !== undefined) {
-                colorIndex++
-                if (colorIndex == Math.floor(filesCount.length / 5)) {
-                    yellow++
-                    colorIndex = -1
-                }
-                
-                console.log(`${colors.fg.getRgb(5, yellow, 0)}${align(fileCount.count, 10, 'left')}   ${align(fileCount.file, 30, 'left')}${colors.reset}`)
+            colorIndex++
+            if (colorIndex == Math.floor(filesCount.length / 5)) {
+                yellow++
+                colorIndex = -1
             }
+            
+            console.log(`${colors.fg.getRgb(5, yellow, 0)}${align(fileCount.count, 10, 'left')}   ${align(fileCount.file, 30, 'left')}${colors.reset}`)
         })
     })
     .catch(error => console.log(error))
