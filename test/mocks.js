@@ -1,8 +1,12 @@
 let mocks = {
-    cliOutput: 
-`commits      filename                      \n\u001b[38;5;196m5            about.html                    \u001b[0m\n\u001b[38;5;202m5            index.html                    \u001b[0m\n\u001b[38;5;202m4            layout(gitmv).html            \u001b[0m\n\u001b[38;5;208m2            clients(rename).html          \u001b[0m\n\u001b[38;5;208m1            readme                        \u001b[0m\n`,
-    cliOutputPeriod:
-`commits      filename                      \n\u001b[38;5;196m3            index.html                    \u001b[0m\n`
+  cliList: 
+  [ { file: 'about.html', count: 5 },                                                                    
+  { file: 'index.html', count: 5 },                                                                    
+  { file: 'layout(gitmv).html', count: 4 },                                                            
+  { file: 'clients(rename).html', count: 2 },                                                          
+  { file: 'readme', count: 1 } ],
+  cliListPeriod:
+  [ { file: 'index.html', count: 3 } ]
 }
 
 module.exports = mocks
