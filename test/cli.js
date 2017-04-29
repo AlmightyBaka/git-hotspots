@@ -6,27 +6,56 @@ mocks = require('./mocks.js')
 describe('git-hotspots', () => {
     describe('list', () => {
         it('should return most changed files in repository', async () => {
-            await new GitHotspots({
-                repo: './test/test_repo'
+            let result = await new Promise((resolve, reject) => {
+                new GitHotspots({
+                    repo: './test/test_repo'
+                })
+                .getHotspots()
+                .then(filesCount => {
+                    resolve(filesCount)
+                })
+                .catch(error => reject(error))
             })
-            .getHotspots()
-            .then(filesCount => {
-                assert.deepEqual(filesCount, mocks.cliList)
-            })
+            
+            assert.deepEqual(result, mocks.cliList)
         });
     });
     
     describe('list --since "04.03.2017 23:44" --until "04.03.2017 23:46"', () => {
         it('should return most changed files in repository during a period', async () => {
-            await new GitHotspots({
-                repo: './test/test_repo',
-                since: '04.03.2017 23:44',
-                until: '04.03.2017 23:46'
+            let result = await new Promise((resolve, reject) => {
+                new GitHotspots({
+                    repo: './test/test_repo',
+                    since: '04.03.2017 23:44',
+                    until: '04.03.2017 23:46'
+                })
+                .getHotspots()
+                .then(filesCount => {
+                    resolve(filesCount)
+                })
+                .catch(error => reject(error))
             })
-            .getHotspots()
-            .then(filesCount => {
-                assert.deepEqual(filesCount, mocks.cliListPeriod)
+            
+            assert.deepEqual(result, mocks.cliListPeriod)
+        });
+    });
+    
+    describe('list --include "**/*.html" --exclude "{index*,layout*}"', () => {
+        it('should return most changed files in repository filtered by glob', async () => {
+            let result = await new Promise((resolve, reject) => {
+                new GitHotspots({
+                    repo: './test/test_repo',
+                    include: '**/*.html',
+                    exclude: '{index*,layout*}'
+                })
+                .getHotspots()
+                .then(filesCount => {
+                    resolve(filesCount)
+                })
+                .catch(error => reject(error))
             })
+            
+            assert.deepEqual(result, mocks.cliListGlob)
         });
     });
 })
