@@ -33,6 +33,9 @@ git-hotspots list --include "**/*.html" --exclude "{index*,layout*}"
 
 ### Changelog
 ```
+0.5.0 - added windows support
+```
+```
 0.4.0 - added directory globbing with --include and --exclude flags
 ```
 ```
