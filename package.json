@@ -5,11 +5,12 @@
   "author": "Almighty Baka <ivanfedulov@almightybaka.com>",
   "license": "MIT",
   "bin": {
-    "git-hotspots": "src/app-cli.js"
+    "git-hotspots": "node src/app-cli.js"
   },
   "preferGlobal": true,
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "run": "node src/app-cli.js list"
   },
   "dependencies": {
     "ansi-256-colors": "^1.1.0",

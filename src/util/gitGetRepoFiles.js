@@ -1,4 +1,5 @@
-const exec = require('child_process').exec
+const exec = require('child_process').exec,
+path = require('path')
 
 const logger = require('./logger.js').get()
 
@@ -6,7 +7,7 @@ let getRepoFiles = function (repo) {
     return new Promise((resolve, reject) => {
         logger.verbose(`getting repository files...`)
         
-        exec(`git --git-dir ${repo}/.git ls-files`,
+        exec(`git --git-dir ${path.join(repo, '/.git')} ls-files`,
         (err, stdout, stderr) => {
             if (err == null && stderr == '') {
                 let files = stdout.trim().split(/\r?\n/)

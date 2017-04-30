@@ -20,7 +20,7 @@ program
 .option('-t, --threads [number]', 'maximum amount of threads running concurrently (250 by default)', 250)
 .option('-v, --verbose',          'verbose output')
 .action(function (repo, options) {
-    repo = repo ? repo : process.cwd()
+    repo = path.resolve(repo ? repo : process.cwd())
     
     gitWrapper.listPrint({
         repo: repo,
