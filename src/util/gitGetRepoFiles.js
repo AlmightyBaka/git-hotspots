@@ -10,12 +10,16 @@ let getRepoFiles = function (repo) {
         (err, stdout, stderr) => {
             if (err == null && stderr == '') {
                 let files = stdout.trim().split(/\r?\n/)
+                
+                logger.verbose(`total file count: ${files.length}`)
+                
                 resolve(files)
             }
             else {
                 reject(err)                    
             }
         })
+        
     })
 }
 

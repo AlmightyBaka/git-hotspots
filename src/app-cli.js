@@ -22,8 +22,6 @@ program
 .action(function (repo, options) {
     repo = repo ? repo : process.cwd()
     
-    let displayProgress = options.verbose? false : true
-
     gitWrapper.listPrint({
         repo: repo,
         include: options.include,
@@ -34,7 +32,7 @@ program
         since: options.since,
         until: options.until,
         author: options.author,
-        displayProgress
+        displayProgress: options.verbose? false : true
     })
 })
 
