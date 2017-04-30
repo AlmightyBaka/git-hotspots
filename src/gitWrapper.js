@@ -12,7 +12,8 @@ let listPrint = function ({
     since = '',
     until = '',
     author = '',
-    threads = 250
+    threads = 250,
+    displayProgress = false
 }) {
     new GitHotspots({
         repo,
@@ -23,7 +24,8 @@ let listPrint = function ({
         since,
         until,
         author,
-        threads
+        threads,
+        displayProgress
     })
     .getHotspots()
     .then(filesCount => {

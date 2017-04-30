@@ -1,22 +1,21 @@
 const exec = require('child_process').exec
 
-const gochan = require('gochan'),
-ProgressBar = require('progress')
+const gochan = require('gochan')
 
-const logger = require('./logger.js').get()
+const log = require('./logger.js').get(),
+logger =  require('./logger.js')
 
 const tokens = gochan()
 
 let getFileLogs = function(files, settings) {
-    logger.verbose(`getting file logs...`)
-    const bar = new ProgressBar('processing: [:bar] :percent ETA: :etas', {
-        total: files.length,
-        width: 20
-    })
+    log.verbose(`getting file logs...`)
+    if (settings.displayProgress) {
+        logger.setBar(files.length)
+    }
     
     let execGit = (file, index, resolve, reject) => {
         tokens.get((err, token) => {
-            logger.verbose(`thread #${token}: started reading file: ${file}`)
+            log.verbose(`thread #${token}: started reading file: ${file}`)
             
             exec(`git --git-dir ${settings.repo}/.git `
             + `log --follow --oneline --pretty=format:"%h" `
@@ -29,12 +28,12 @@ let getFileLogs = function(files, settings) {
                     let count = stdout.trim().split(/\r?\n/).length
                     
                     if(stdout !== '') {
-                        logger.verbose(`finished reading file: ${count} changes ${file}`)
-                        logger.verbose(`file #${index}, thread #${token}\n`)
+                        log.verbose(`finished reading file: ${count} changes ${file}`)
+                        log.verbose(`file #${index}, thread #${token}`)
                         
                         tokens.put(token)
 
-                        bar.tick()
+                        logger.tickBar()
                         
                         resolve({
                             file,
@@ -42,12 +41,12 @@ let getFileLogs = function(files, settings) {
                         })
                     }
                     else {
-                        logger.verbose(`finished reading file: ${count} changes ${file}`)
-                        logger.verbose(`file #${index}, thread #${token}\n`)
+                        log.verbose(`finished reading file: ${count} changes ${file}`)
+                        log.verbose(`file #${index}, thread #${token}`)
                         
                         tokens.put(token)
 
-                        bar.tick()
+                        logger.tickBar()
 
                         resolve()
                     }
@@ -69,7 +68,7 @@ let getFileLogs = function(files, settings) {
         return new Promise((resolve, reject) => execGit(file, index, resolve, reject))
     })
     
-    logger.verbose(`total files count: ${files.length}`)
+    log.verbose(`total files count: ${files.length}`)
     
     return files
 }

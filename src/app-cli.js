@@ -22,6 +22,8 @@ program
 .action(function (repo, options) {
     repo = repo ? repo : process.cwd()
     
+    let displayProgress = options.verbose? false : true
+
     gitWrapper.listPrint({
         repo: repo,
         include: options.include,
@@ -31,7 +33,8 @@ program
         threads: Number(options.threads),
         since: options.since,
         until: options.until,
-        author: options.author
+        author: options.author,
+        displayProgress
     })
 })
 

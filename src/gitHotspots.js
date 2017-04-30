@@ -36,6 +36,8 @@ class GitHotspots{
             settings.until : undefined
         settings.author = typeof settings.author === 'string' && settings.author !== ''?
             settings.author : undefined
+        settings.displayProgress = typeof settings.displayProgress === 'boolean'?
+            settings.displayProgress : false
         
         this.settings = settings
         
