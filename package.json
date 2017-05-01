@@ -19,8 +19,7 @@
     "gochan": "^0.1.2",
     "minimatch": "^3.0.3",
     "progress": "^2.0.0",
-    "string-align": "^0.2.0",
-    "winston": "^2.3.1"
+    "string-align": "^0.2.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0"

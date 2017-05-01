@@ -3,8 +3,7 @@ path = require('path')
 
 const gochan = require('gochan')
 
-const log = require('./logger.js').get(),
-logger =  require('./logger.js')
+const logger = require('./logger.js')
 
 const tokens = gochan()
 
@@ -18,15 +17,15 @@ let getFileLogs = function(files, settings) {
         + `-- ${file.replace(/(?=[() ])/g, '\\')}`
     }
     
-    log.verbose(`getting file logs...`)
-    log.verbose(`using command: ${getGitCommand('<file>')}`)
+    logger.verbose(`getting file logs...`)
+    logger.verbose(`using command: ${getGitCommand('<file>')}`)
     if (settings.displayProgress) {
         logger.setBar(files.length)
     }
     
     let execGit = (file, index, resolve, reject) => {
         tokens.get((err, token) => {
-            log.verbose(`file #${index}, thread #${token} - started reading file: ${file}`)
+            logger.verbose(`file #${index}, thread #${token} - started reading file: ${file}`)
             
             exec(getGitCommand(file),
             (err, stdout, stderr) => {
@@ -34,7 +33,7 @@ let getFileLogs = function(files, settings) {
                     let count = stdout.trim().split(/\r?\n/).length
                     
                     if(stdout !== '') {
-                        log.verbose(`file #${index}, thread #${token} - finished reading file: ${count} changes ${file}`)
+                        logger.verbose(`file #${index}, thread #${token} - finished reading file: ${count} changes ${file}`)
                         
                         tokens.put(token)
                         
@@ -46,8 +45,8 @@ let getFileLogs = function(files, settings) {
                         })
                     }
                     else {
-                        log.verbose(`finished reading file: ${count} changes ${file}`)
-                        log.verbose(`file #${index}, thread #${token}`)
+                        logger.verbose(`finished reading file: ${count} changes ${file}`)
+                        logger.verbose(`file #${index}, thread #${token}`)
                         
                         tokens.put(token)
                         

@@ -8,7 +8,7 @@ let listPrint = function ({
     include = '',
     exclude = '',
     amount = 10,
-    logLevel = 'info',
+    verbose = false,
     since = '',
     until = '',
     author = '',
@@ -20,7 +20,7 @@ let listPrint = function ({
         include,
         exclude,
         amount,
-        logLevel,
+        verbose,
         since,
         until,
         author,
@@ -29,6 +29,10 @@ let listPrint = function ({
     })
     .getHotspots()
     .then(filesCount => {
+        if (!verbose) {
+            process.stdout.moveCursor(0, -1, 0)
+            process.stdout.clearLine(0, 0, 0, 0)
+        }
         console.log(`${align('commits', 10, 'left')}   ${align('filename', 30, 'left')}`)
         
         let [yellow, colorIndex] = [0, -1]

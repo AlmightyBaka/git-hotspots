@@ -10,7 +10,7 @@ class GitHotspots{
     * @property {string}  settings.exclude   - Regex to exclude files.
     * @property {number}  settings.amount    - Amount of files to be shown.
     * @property {number}  settings.threads   - Maximum amount of threads running concurrently.
-    * @property {string}  settings.logLevel  - Log level ('info' or 'verbose').
+    * @property {boolean} settings.verbose   - Sets verbose output.
     * @property {string}  settings.since     - Limit the commits to those made after the specified date.
     * @property {string}  settings.until     - Limit the commits to those made before the specified date.
     * @property {string}  settings.authore   - Only show commits in which the author entry matches the specified string.
@@ -28,8 +28,8 @@ class GitHotspots{
             settings.amount : 10
         settings.threads = typeof settings.threads === 'number'?
             settings.threads : 250
-        settings.logLevel = typeof settings.logLevel === 'string' && settings.string !== ''?
-            settings.logLevel : 'info'
+        settings.verbose = typeof settings.verbose === 'boolean'?
+            settings.verbose : false
         settings.since = typeof settings.since === 'string' && settings.since !== ''?
             settings.since : undefined
         settings.until = typeof settings.until === 'string' && settings.until !== ''?
@@ -41,7 +41,7 @@ class GitHotspots{
         
         this.settings = settings
         
-        logger.setLevel(this.settings.logLevel)
+        logger.setVerbose(this.settings.verbose)
     }
     
     setRepo(dir) {
@@ -59,9 +59,9 @@ class GitHotspots{
         return this
     }
     
-    setLogLevel(logLevel) {
-        this.settings.logLevel = logLevel
-        logger.setLevel(logLevel)        
+    setVerbose(verbose) {
+        this.settings.verbose = verbose
+        logger.setVerbose(verbose)        
         
         return this
     }

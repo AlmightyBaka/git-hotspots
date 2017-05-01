@@ -27,7 +27,7 @@ program
         include: options.include,
         exclude: options.exclude,
         amount: Number(options.amount),
-        logLevel: options.verbose? 'verbose' : 'info',
+        verbose: options.verbose,
         threads: Number(options.threads),
         since: options.since,
         until: options.until,

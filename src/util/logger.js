@@ -1,9 +1,11 @@
-const winston = require('winston'),
-ProgressBar = require('progress')
+const ProgressBar = require('progress')
+
+this.verbose = false;
 
 let logger = {
-    get: () => winston,
-    setLevel: level => winston.level = level,
+    verbose: string => {if (this.verbose) console.log(string)},
+    log: string => console.log(string),
+    setVerbose: verbose => this.verbose = verbose,
     setBar: length => this.bar = new ProgressBar(
     'processing: [:bar] :percent ETA: :etas',
     {

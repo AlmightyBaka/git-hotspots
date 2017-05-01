@@ -1,7 +1,7 @@
 const exec = require('child_process').exec,
 path = require('path')
 
-const logger = require('./logger.js').get()
+const logger = require('./logger.js')
 
 let getRepoFiles = function (repo) {
     return new Promise((resolve, reject) => {
