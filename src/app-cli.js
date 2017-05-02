@@ -15,7 +15,9 @@ program
 .option('-i, --include [string]', 'include files by regex')
 .option('-e, --exclude [string]', 'exclude files by regex')
 .option('-s, --since [string]',   'limit the commits to those made after the specified date (using the same format as git log --since)')
+.option('-S, --since-commit [hash]', 'limit the commits to those made after the specified commit')
 .option('-u, --until [string]',   'limit the commits to those made before the specified date (using the same format as git log --until)')
+.option('-U, --until-commit [string]', 'limit the commits to those made before the specified commit')
 .option('-a, --author [string]',  'only show commits in which the author entry matches the specified string')
 .option('-t, --threads [number]', 'maximum amount of threads running concurrently (250 by default)', 250)
 .option('-v, --verbose',          'verbose output')
@@ -24,14 +26,18 @@ program
     
     gitWrapper.listPrint({
         repo: repo,
-        include: options.include,
-        exclude: options.exclude,
-        amount: Number(options.amount),
+        limits: {
+            amount: Number(options.amount),
+            include: options.include,
+            exclude: options.exclude,
+            since: options.since,
+            sinceCommit: options.sinceCommit,
+            until: options.until,
+            untilCommit: options.untilCommit,
+            author: options.author,
+        },
         verbose: options.verbose,
         threads: Number(options.threads),
-        since: options.since,
-        until: options.until,
-        author: options.author,
         displayProgress: options.verbose? false : true
     })
 })

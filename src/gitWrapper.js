@@ -5,25 +5,22 @@ const GitHotspots = require('./gitHotspots.js')
 
 let listPrint = function ({
     repo = '.',
-    include = '',
-    exclude = '',
-    amount = 10,
+    limits = {
+        amount: 10,
+        include: '',
+        exclude: '',
+        since: '',
+        until: '',
+        author: '',
+    },
     verbose = false,
-    since = '',
-    until = '',
-    author = '',
     threads = 250,
     displayProgress = false
 }) {
     new GitHotspots({
         repo,
-        include,
-        exclude,
-        amount,
+        limits,
         verbose,
-        since,
-        until,
-        author,
         threads,
         displayProgress
     })

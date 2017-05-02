@@ -26,8 +26,10 @@ describe('git-hotspots', () => {
             let result = await new Promise((resolve, reject) => {
                 new GitHotspots({
                     repo: './test/test_repo',
-                    since: '04.03.2017 23:44',
-                    until: '04.03.2017 23:46'
+                    limits: {
+                        since: '04.03.2017 23:44',
+                        until: '04.03.2017 23:46'
+                    }
                 })
                 .getHotspots()
                 .then(filesCount => {
@@ -45,8 +47,10 @@ describe('git-hotspots', () => {
             let result = await new Promise((resolve, reject) => {
                 new GitHotspots({
                     repo: './test/test_repo',
-                    include: '**/*.html',
-                    exclude: '{index*,layout*}'
+                    limits: {
+                        include: '**/*.html',
+                        exclude: '{index*,layout*}'
+                    }
                 })
                 .getHotspots()
                 .then(filesCount => {

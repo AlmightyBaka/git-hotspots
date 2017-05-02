@@ -11,9 +11,9 @@ let getFileLogs = function(files, settings) {
     let getGitCommand = (file) => {
         return `git --git-dir ${path.join(settings.repo, '/.git')} `
         + `log --follow --oneline --pretty=format:"%h" `
-        + `${settings.since? `--since="${settings.since}" ` : ''}`
-        + `${settings.until? `--until="${settings.until}" ` : ''}`
-        + `${settings.author? `--author="${settings.author}" ` : ''}`
+        + `${settings.limits.since? `--since="${settings.limits.since}" ` : ''}`
+        + `${settings.limits.until? `--until="${settings.limits.until}" ` : ''}`
+        + `${settings.limits.author? `--author="${settings.limits.author}" ` : ''}`
         + `-- ${file.replace(/(?=[() ])/g, '\\')}`
     }
     

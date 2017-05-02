@@ -5,14 +5,14 @@ getFileLogs = require('./gitGetFileLogs.js')
 
 let getHotspots = function (settings, resolve, reject) {
     let filterFiles = function(files) {
-        if (settings.exclude !== undefined) {
+        if (settings.limits.exclude !== undefined) {
             files = files.filter(file => {
-                return !minimatch(file, settings.exclude)
+                return !minimatch(file, settings.limits.exclude)
             })
         }
-        if (settings.include !== undefined) {
+        if (settings.limits.include !== undefined) {
             files = files.filter(file => {
-                return minimatch(file, settings.include)
+                return minimatch(file, settings.limits.include)
             })
         }
         
@@ -35,8 +35,8 @@ let getHotspots = function (settings, resolve, reject) {
     }
     
     let spliceFiles = function(filesCount) {
-        if (settings.amount !== undefined) {
-            filesCount.splice(settings.amount, filesCount.length - settings.amount)
+        if (settings.limits.amount !== undefined) {
+            filesCount.splice(settings.limits.amount, filesCount.length - settings.limits.amount)
         }
         
         return filesCount
