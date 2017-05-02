@@ -1,5 +1,6 @@
 const gitCounter = require('./util/gitCounter.js'),
-logger = require('./util/logger.js')
+logger = require('./util/logger.js'),
+defineProperty = require('./util/defineProperty.js')
 
 class GitHotspots{
     /**
@@ -13,31 +14,22 @@ class GitHotspots{
     * @property {boolean} settings.verbose   - Sets verbose output.
     * @property {string}  settings.since     - Limit the commits to those made after the specified date.
     * @property {string}  settings.until     - Limit the commits to those made before the specified date.
-    * @property {string}  settings.authore   - Only show commits in which the author entry matches the specified string.
+    * @property {string}  settings.author    - Only show commits in which the author entry matches the specified string.
+    * @property {string}  settings.displayProgress   - Shows progress bar if true.
     */
     constructor(settings) {
         settings = settings || {}
-
-        settings.repo = typeof settings.repo === 'string' && settings.repo !== ''?
-            settings.repo : '.'
-        settings.include = typeof settings.include === 'string' && settings.include !== ''?
-            settings.include : undefined
-        settings.exclude = typeof settings.exclude === 'string' && settings.exclude !== ''?
-            settings.exclude : undefined
-        settings.amount = typeof settings.amount === 'number'?
-            settings.amount : 10
-        settings.threads = typeof settings.threads === 'number'?
-            settings.threads : 250
-        settings.verbose = typeof settings.verbose === 'boolean'?
-            settings.verbose : false
-        settings.since = typeof settings.since === 'string' && settings.since !== ''?
-            settings.since : undefined
-        settings.until = typeof settings.until === 'string' && settings.until !== ''?
-            settings.until : undefined
-        settings.author = typeof settings.author === 'string' && settings.author !== ''?
-            settings.author : undefined
-        settings.displayProgress = typeof settings.displayProgress === 'boolean'?
-            settings.displayProgress : false
+        
+        defineProperty(settings, 'repo', settings.repo, '.', 'string')
+        defineProperty(settings, 'include', settings.include, undefined, 'string')
+        defineProperty(settings, 'exclude', settings.repo, undefined, 'string')
+        defineProperty(settings, 'amount', settings.amount, 10, 'number')
+        defineProperty(settings, 'threads', settings.amount, 250, 'number')
+        defineProperty(settings, 'verbose', settings.verbose, false, 'boolean')
+        defineProperty(settings, 'since', settings.since, undefined, 'string')
+        defineProperty(settings, 'until', settings.until, undefined, 'string')
+        defineProperty(settings, 'author', settings.author, undefined, 'string')
+        defineProperty(settings, 'displayProgress', settings.displayProgress, false, 'boolean')
         
         this.settings = settings
         
@@ -83,7 +75,7 @@ class GitHotspots{
     
     getHotspots() {
         return new Promise((resolve, reject) =>
-            gitCounter(this.settings, resolve, reject))
+        gitCounter(this.settings, resolve, reject))
     }
 }
 
