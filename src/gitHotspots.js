@@ -1,4 +1,4 @@
-const gitCounter = require('./util/gitCounter.js'),
+const gitCounter = require('./util/git/gitCounter.js'),
 logger = require('./util/logger.js'),
 defineProperty = require('./util/defineProperty.js')
 

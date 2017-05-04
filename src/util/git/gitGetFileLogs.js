@@ -3,7 +3,7 @@ path = require('path')
 
 const gochan = require('gochan')
 
-const logger = require('./logger.js')
+const logger = require('../logger.js')
 
 const tokens = gochan()
 
