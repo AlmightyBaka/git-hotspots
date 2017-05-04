@@ -20,7 +20,6 @@ let getRepoFiles = function (repo) {
                 reject(err)                    
             }
         })
-        
     })
 }
 

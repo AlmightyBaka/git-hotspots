@@ -1,5 +1,4 @@
 const exec = require('child_process').exec,
-execSync = require('child_process').execSync,
 path = require('path')
 
 const gochan = require('gochan')
@@ -18,62 +17,7 @@ let getFileLogs = function(files, settings) {
         + `-- ${file.replace(/(?=[() ])/g, '\\')}`
     }
     
-    let getIncludedCommits = (sinceHash, untilHash) => {
-        let includedCommits = execSync(
-        `git --git-dir ${path.join(settings.repo, '/.git')} `
-        + `log --oneline --pretty=format:"%H" `)
-        .toString()
-        .trim().split(/\r?\n/)
-        let includedCommitsShort = includedCommits.map(commit => commit.slice(0, 7))
-        
-        let sinceCommitIndex = includedCommits.indexOf(sinceHash) >= 0?
-        includedCommits.indexOf(sinceHash)
-        : includedCommitsShort.indexOf(sinceHash)
-        let untilCommitIndex = includedCommits.indexOf(untilHash) >= 0?
-        includedCommits.indexOf(untilHash)
-        : includedCommitsShort.indexOf(untilHash)
-        
-        if (sinceHash !== undefined && sinceCommitIndex < 0) {
-            throw new Error(`--since-commit - commit ${sinceHash} not found.`)
-        }
-        if (untilHash !== undefined && untilCommitIndex < 0)
-        {
-            throw new Error(`--until-commit - commit ${untilHash} not found.`)
-        }
-        if (sinceHash !== undefined && untilHash !== undefined
-        && sinceCommitIndex < untilCommitIndex) {
-            throw new Error('--since-commit hash appears to be made later than --until-commit hash; you should swap them.')
-        }
-        
-        if (sinceHash !== undefined) {
-            includedCommits = includedCommits.splice(0, sinceCommitIndex + 1)
-        }
-        if (untilHash !== undefined) {
-            includedCommits = includedCommits.splice(untilCommitIndex, includedCommits.length)
-        }
-
-        includedCommitsShort = includedCommits.map(commit => commit.slice(0, 7))
-        
-        return {
-            commits: includedCommits,
-            commitsShort: includedCommitsShort
-        }
-    }
-    
-    let isIncluded = (commit) => {
-        if (settings.limits.sinceCommit !== undefined
-        || settings.limits.untilCommit !== undefined) {
-            this.includedCommits = this.includedCommits || getIncludedCommits(settings.limits.sinceCommit, settings.limits.untilCommit)
-            
-            return this.includedCommits.commits.includes(commit)
-            || this.includedCommits.commitsShort.includes(commit)
-        }
-        else {
-            return true
-        } 
-    }
-    
-    
+    let isCommitIncluded = require('./gitIsCommitIncluded.js')(settings.repo, settings.limits.sinceCommit, settings.limits.untilCommit)
     
     let execGit = (file, index, resolve, reject) => {
         tokens.get((err, token) => {
@@ -82,7 +26,7 @@ let getFileLogs = function(files, settings) {
             exec(getGitCommand(file), (err, stdout, stderr) => {
                 if (err === null && stderr === '') {
                     let commits = stdout !== ''?
-                    stdout.trim().split(/\r?\n/).filter(commit => isIncluded(commit))
+                    stdout.trim().split(/\r?\n/).filter(commit => isCommitIncluded(commit))
                     : ""
                     
                     if(commits.length > 0) {
