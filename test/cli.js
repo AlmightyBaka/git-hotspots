@@ -62,4 +62,25 @@ describe('git-hotspots', () => {
             assert.deepEqual(result, mocks.cliListGlob)
         });
     });
+    
+    describe('list --since-commit "74b3a326c7337237fc4563ede3976d20cf549534" --until-commit "fa8e20f"', () => {
+        it('should return most changed files in repository between commits', async () => {
+            let result = await new Promise((resolve, reject) => {
+                new GitHotspots({
+                    repo: './test/test_repo',
+                    limits: {
+                        sinceCommit: '74b3a326c7337237fc4563ede3976d20cf549534',
+                        untilCommit: 'fa8e20f'
+                    }
+                })
+                .getHotspots()
+                .then(filesCount => {
+                    resolve(filesCount)
+                })
+                .catch(error => reject(error))
+            })
+            
+            assert.deepEqual(result, mocks.cliListPeriodHash)
+        });
+    });
 })
