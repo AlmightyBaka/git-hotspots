@@ -32,9 +32,9 @@ class GitHotspots{
         defineProperty(settings.limits, 'sinceCommit', settings.limits, undefined, 'string')
         defineProperty(settings.limits, 'until', settings.limits, undefined, 'string')
         defineProperty(settings.limits, 'untilCommit', settings.limits, undefined, 'string')
+        defineProperty(settings.limits, 'author', settings.limits.author, undefined, 'string')
         defineProperty(settings, 'threads', settings.threads, 250, 'number')
         defineProperty(settings, 'verbose', settings.verbose, false, 'boolean')
-        defineProperty(settings, 'author', settings.author, undefined, 'string')
         defineProperty(settings, 'displayProgress', settings.displayProgress, false, 'boolean')
         
         this.settings = settings
